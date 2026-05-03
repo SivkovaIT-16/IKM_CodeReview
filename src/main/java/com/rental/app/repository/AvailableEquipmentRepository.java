@@ -1,3 +1,5 @@
+// FIX_ME: отступы изменены на 2 пробела
+// FIX_ME: добавлен перенос строки, если строка более 100 символов
 package com.rental.app.repository;
 
 import com.rental.app.entity.RentalPoint;
@@ -21,60 +23,61 @@ import java.util.Optional;
  */
 @Repository
 public interface AvailableEquipmentRepository extends JpaRepository<AvailableEquipment, Long> {
-    /**
-     * Находит весь инвентарь в указанном пункте проката.
-     * <p>
-     * Используется для отображения полного ассортимента пункта.
-     * </p>
-     *
-     * @param rentalPointId ID пункта проката
-     * @return список доступного инвентаря в указанном пункте или пустой список, если инвентаря нет
-     * @see RentalPoint
-     */
-    List<AvailableEquipment> findByRentalPointId(Long rentalPointId);
+  /**
+   * Находит весь инвентарь в указанном пункте проката.
+   * <p>
+   * Используется для отображения полного ассортимента пункта.
+   * </p>
+   *
+   * @param rentalPointId ID пункта проката
+   * @return список доступного инвентаря в указанном пункте или пустой список, если инвентаря нет
+   * @see RentalPoint
+   */
+  List<AvailableEquipment> findByRentalPointId(Long rentalPointId);
 
-    /**
-     * Находит весь инвентарь определенного типа во всех пунктах проката.
-     *
-     * @param equipmentTypeId ID типа инвентаря
-     * @return список записей о наличии указанного типа инвентаря во всех пунктах проката
-     * @see EquipmentTypeRepository
-     */
-    List<AvailableEquipment> findByEquipmentTypeId(Long equipmentTypeId);
+  /**
+   * Находит весь инвентарь определенного типа во всех пунктах проката.
+   *
+   * @param equipmentTypeId ID типа инвентаря
+   * @return список записей о наличии указанного типа инвентаря во всех пунктах проката
+   * @see EquipmentTypeRepository
+   */
+  List<AvailableEquipment> findByEquipmentTypeId(Long equipmentTypeId);
 
-    /**
-     * Находит конкретную запись о наличии инвентаря по пункту проката и типу инвентаря.
-     * <p>
-     * Используется для проверки наличия определенного типа инвентаря в конкретном пункте.
-     * </p>
-     *
-     * @param rentalPointId ID пункта проката
-     * @param equipmentTypeId ID типа инвентаря
-     * @return {@link Optional} с записью о наличии или пустой {@link Optional}, если запись не найдена
-     */
-    Optional<AvailableEquipment> findByRentalPointIdAndEquipmentTypeId(Long rentalPointId, Long equipmentTypeId);
+  /**
+   * Находит конкретную запись о наличии инвентаря по пункту проката и типу инвентаря.
+   * <p>
+   * Используется для проверки наличия определенного типа инвентаря в конкретном пункте.
+   * </p>
+   *
+   * @param rentalPointId   ID пункта проката
+   * @param equipmentTypeId ID типа инвентаря
+   * @return {@link Optional} с записью о наличии или пустой {@link Optional}, если запись не найдена
+   */
+  Optional<AvailableEquipment> findByRentalPointIdAndEquipmentTypeId(Long rentalPointId,
+                                                                     Long equipmentTypeId);
 
-    /**
-     * Находит инвентарь с количеством доступных единиц больше указанного значения.
-     * <p>
-     * Используется для поиска позиций, которые есть в достаточном количестве для аренды.
-     * </p>
-     *
-     * @param count минимальное количество доступных единиц (не включая это значение)
-     * @return список позиций инвентаря с доступным количеством больше указанного
-     * @see AvailableEquipment#getAvailableCount()
-     */
-    List<AvailableEquipment> findByAvailableCountGreaterThan(Integer count);
+  /**
+   * Находит инвентарь с количеством доступных единиц больше указанного значения.
+   * <p>
+   * Используется для поиска позиций, которые есть в достаточном количестве для аренды.
+   * </p>
+   *
+   * @param count минимальное количество доступных единиц (не включая это значение)
+   * @return список позиций инвентаря с доступным количеством больше указанного
+   * @see AvailableEquipment#getAvailableCount()
+   */
+  List<AvailableEquipment> findByAvailableCountGreaterThan(Integer count);
 
-    /**
-     * Проверяет существование записи о наличии инвентаря для указанных пункта и типа.
-     * <p>
-     * Используется для валидации при добавлении или обновлении записей.
-     * </p>
-     *
-     * @param rentalPointId ID пункта проката
-     * @param equipmentTypeId ID типа инвентаря
-     * @return {@code true} если запись существует, {@code false} в противном случае
-     */
-    boolean existsByRentalPointIdAndEquipmentTypeId(Long rentalPointId, Long equipmentTypeId);
+  /**
+   * Проверяет существование записи о наличии инвентаря для указанных пункта и типа.
+   * <p>
+   * Используется для валидации при добавлении или обновлении записей.
+   * </p>
+   *
+   * @param rentalPointId   ID пункта проката
+   * @param equipmentTypeId ID типа инвентаря
+   * @return {@code true} если запись существует, {@code false} в противном случае
+   */
+  boolean existsByRentalPointIdAndEquipmentTypeId(Long rentalPointId, Long equipmentTypeId);
 }

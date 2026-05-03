@@ -1,3 +1,4 @@
+<!--FIX_ME: добавлен перенос строки, если строка более 100 символов-->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -64,7 +65,8 @@
             <tr th:each="equipmentType : ${equipmentTypes}">
                 <td th:text="${equipmentType.id}">1</td>
                 <td>
-                    <a th:href="@{/equipmentTypes/view/{id}(id=${equipmentType.id})}" class="equipmentType-link"
+                    <a th:href="@{/equipmentTypes/view/{id}(id=${equipmentType.id})}"
+                       class="equipmentType-link"
                        th:text="${equipmentType.typeName}">Название типа инвентаря</a>
                 </td>
                 <td th:text="${equipmentType.category}">Категория</td>
@@ -88,7 +90,8 @@
             <div class="empty-icon">🏋️‍♂️</div>
             <h2>Типов инвентаря пока нет</h2>
             <p>Начните добавлять типы инвентаря в систему</p>
-            <a th:href="@{/equipmentTypes/new}" class="btn btn-primary btn-large">Добавить первый тип инвентаря</a>
+            <a th:href="@{/equipmentTypes/new}" class="btn btn-primary btn-large">
+                Добавить первый тип инвентаря</a>
         </div>
     </div>
 </div>

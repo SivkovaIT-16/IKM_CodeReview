@@ -1,3 +1,4 @@
+<!--FIX_ME: добавлен перенос строки, если строка более 100 символов-->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -32,9 +33,12 @@
     <div class="action-panel">
         <form th:action="@{/rentalPoints/search}" method="get" class="search-form" autocomplete="off">
             <select name="searchType" class="search-select">
-                <option value="pointName" th:selected="${searchType == 'pointName'}">По названию</option>
-                <option value="location" th:selected="${searchType == 'location'}">По расположению</option>
-                <option value="openingHours" th:selected="${searchType == 'openingHours'}">По часам работы</option>
+                <option value="pointName" th:selected="${searchType == 'pointName'}">
+                    По названию</option>
+                <option value="location" th:selected="${searchType == 'location'}">
+                    По расположению</option>
+                <option value="openingHours" th:selected="${searchType == 'openingHours'}">
+                    По часам работы</option>
             </select>
             <input type="text" name="searchQuery" th:value="${searchQuery}"
                    placeholder="Введите текст для поиска..." class="search-input">
@@ -65,7 +69,8 @@
             <tr th:each="rentalPoint : ${rentalPoints}">
                 <td th:text="${rentalPoint.id}">1</td>
                 <td>
-                    <a th:href="@{/rentalPoints/view/{id}(id=${rentalPoint.id})}" class="rentalPoint-link"
+                    <a th:href="@{/rentalPoints/view/{id}(id=${rentalPoint.id})}"
+                       class="rentalPoint-link"
                        th:text="${rentalPoint.pointName}">Название пункта проката</a>
                 </td>
                 <td th:text="${rentalPoint.location}">Расположение</td>
@@ -89,7 +94,8 @@
             <div class="empty-icon">📍</div>
             <h2>Пунктов проката пока нет</h2>
             <p>Начните добавлять пункты проката в систему</p>
-            <a th:href="@{/rentalPoints/new}" class="btn btn-primary btn-large">Добавить первый пункт проката</a>
+            <a th:href="@{/rentalPoints/new}" class="btn btn-primary btn-large">
+                Добавить первый пункт проката</a>
         </div>
     </div>
 </div>

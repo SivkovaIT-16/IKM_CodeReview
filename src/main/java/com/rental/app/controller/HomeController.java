@@ -1,3 +1,5 @@
+// FIX_ME: отступы изменены на 2 пробела
+// FIX_ME: добавлен перенос строки, если строка более 100 символов
 package com.rental.app.controller;
 
 import org.springframework.stereotype.Controller;
@@ -16,18 +18,18 @@ import org.springframework.web.bind.annotation.GetMapping;
  */
 @Controller
 public class HomeController {
-    /**
-     * Обрабатывает запросы к корневому URL приложения ("/").
-     * <p>
-     * Автоматически перенаправляет пользователей на страницу управления инвентарем,
-     * которая является основной функциональной страницей приложения.
-     * </p>
-     *
-     * @return строка "redirect:/availableEquipments" для перенаправления на страницу инвентаря
-     * @see AvailableEquipmentController
-     */
-    @GetMapping("/")
-    public String home() {
-        return "redirect:/availableEquipments";
-    }
+  /**
+   * Обрабатывает запросы к корневому URL приложения ("/").
+   * <p>
+   * Автоматически перенаправляет пользователей на страницу управления инвентарем,
+   * которая является основной функциональной страницей приложения.
+   * </p>
+   *
+   * @return строка "redirect:/availableEquipments" для перенаправления на страницу инвентаря
+   * @see AvailableEquipmentController
+   */
+  @GetMapping("/")
+  public String home() {
+    return "redirect:/availableEquipments";
+  }
 }

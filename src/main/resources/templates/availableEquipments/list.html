@@ -1,3 +1,4 @@
+<!--FIX_ME: добавлен перенос строки, если строка более 100 символов-->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -30,7 +31,8 @@
 
     <!--Кнопка добавления доступного инвентаря-->
     <div class="action-panel">
-        <a th:href="@{/availableEquipments/new}" class="btn btn-primary">+ Добавить доступный инвентарь</a>
+        <a th:href="@{/availableEquipments/new}" class="btn btn-primary">
+            + Добавить доступный инвентарь</a>
     </div>
 
     <!--Информация о количестве доступного инвентаря-->
@@ -40,7 +42,8 @@
     </div>
 
     <!--Таблица доступного инвентаря-->
-    <div class="list-container" th:if="${availableEquipments != null and !availableEquipments.isEmpty()}">
+    <div class="list-container" th:if="${availableEquipments != null and
+     !availableEquipments.isEmpty()}">
         <table class="data-table">
             <thead>
             <tr>
@@ -58,12 +61,16 @@
             <tr th:each="availableEquipment : ${availableEquipments}">
                 <td th:text="${availableEquipment.availableId}">1</td>
                 <td>
-                    <strong th:text="${availableEquipment.rentalPoint.pointName}">Пункт проката</strong><br>
-                    <small th:text="${availableEquipment.rentalPoint.location}">Локация</small>
+                    <strong th:text="${availableEquipment.rentalPoint.pointName}">
+                        Пункт проката</strong><br>
+                    <small th:text="${availableEquipment.rentalPoint.location}">
+                        Локация</small>
                 </td>
                 <td>
-                    <strong th:text="${availableEquipment.equipmentType.typeName}">Тип инвентаря</strong><br>
-                    <small th:text="${availableEquipment.equipmentType.category}">Категория</small>
+                    <strong th:text="${availableEquipment.equipmentType.typeName}">
+                        Тип инвентаря</strong><br>
+                    <small th:text="${availableEquipment.equipmentType.category}">
+                        Категория</small>
                 </td>
                 <td th:text="${availableEquipment.totalCount}">10</td>
                 <td>
@@ -71,15 +78,21 @@
                 </td>
                 <td th:text="${availableEquipment.cost}">100</td>
                 <td>
-                    <span th:if="${availableEquipment.isAvailable()}" class="status status-available">✓ Доступен</span>
-                    <span th:unless="${availableEquipment.isAvailable()}" class="status status-unavailable">✗ Нет в наличии</span>
+                    <span th:if="${availableEquipment.isAvailable()}" class="status status-available">
+                        ✓ Доступен</span>
+                    <span th:unless="${availableEquipment.isAvailable()}"
+                          class="status status-unavailable">
+                        ✗ Нет в наличии</span>
                 </td>
                 <td class="actions">
-                    <a th:href="@{/availableEquipments/view/{id}(id=${availableEquipment.availableId})}"
+                    <a th:href="@{/availableEquipments/view/{id}
+                    (id=${availableEquipment.availableId})}"
                        class="btn btn-small btn-view">Просмотр</a>
-                    <a th:href="@{/availableEquipments/edit/{id}(id=${availableEquipment.availableId})}"
+                    <a th:href="@{/availableEquipments/edit/{id}
+                    (id=${availableEquipment.availableId})}"
                        class="btn btn-small btn-edit">Изменить</a>
-                    <a th:href="@{/availableEquipments/delete/{id}(id=${availableEquipment.availableId})}"
+                    <a th:href="@{/availableEquipments/delete/{id}
+                    (id=${availableEquipment.availableId})}"
                        class="btn btn-small btn-delete"
                        onclick="return confirm('Вы уверены, что хотите удалить эту запись?')"
                        title="Удалить">Удалить</a>
@@ -94,7 +107,8 @@
         <div class="empty-icon">📋</div>
         <h2>Доступного инвентаря пока нет</h2>
         <p>Начните добавлять доступный инвентарь в систему</p>
-        <a th:href="@{/availableEquipments/new}" class="btn btn-primary btn-large">Добавить первую запись</a>
+        <a th:href="@{/availableEquipments/new}" class="btn btn-primary btn-large">
+            Добавить первую запись</a>
     </div>
 </div>
 </body>

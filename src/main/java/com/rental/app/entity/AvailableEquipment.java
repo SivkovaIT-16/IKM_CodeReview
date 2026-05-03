@@ -1,3 +1,5 @@
+// FIX_ME: отступы изменены на 2 пробела
+// FIX_ME: добавлен перенос строки, если строка более 100 символов
 package com.rental.app.entity;
 
 import jakarta.persistence.*;
@@ -48,402 +50,397 @@ import org.hibernate.annotations.OnDeleteAction;
  */
 @Entity
 @Table(name = "available_equipment",
-        uniqueConstraints = @UniqueConstraint(columnNames = {"point_id", "type_id"}))
+  uniqueConstraints = @UniqueConstraint(columnNames = {"point_id", "type_id"}))
 public class AvailableEquipment {
-    /**
-     * Уникальный идентификатор записи о доступном инвентаре.
-     * <p>
-     * Генерируется автоматически базой данных при создании новой записи.
-     * Не может быть null.
-     * </p>
-     */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "available_id")
-    private Long availableId;
+  /**
+   * Уникальный идентификатор записи о доступном инвентаре.
+   * <p>
+   * Генерируется автоматически базой данных при создании новой записи.
+   * Не может быть null.
+   * </p>
+   */
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "available_id")
+  private Long availableId;
 
-    /**
-     * Пункт проката, в котором доступен инвентарь.
-     * <p>
-     * Обязательное поле. Связь многие-к-одному с сущностью {@link RentalPoint}.
-     * Не может быть null.
-     * <b>Каскадное удаление:</b> При удалении пункта проката будут автоматически
-     * удалены все связанные записи в available_equipment.
-     * </p>
-     * <p>
-     * <b>Связь с базой данных:</b> Хранится как внешний ключ к таблице {@code rental_points}.
-     * </p>
-     * <p><b>Валидация выполняется автоматически через аннотацию:</b> {@link NotNull} - значение не должно быть null.</p>
-     * <p><b>Сообщение об ошибке валидации:</b> "Точка проката должна быть указана."</p>
-     */
-    @ManyToOne
-    @JoinColumn(name = "point_id", nullable = false)
-    @NotNull(message = "Точка проката должна быть указана.")
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private RentalPoint rentalPoint;
+  /**
+   * Пункт проката, в котором доступен инвентарь.
+   * <p>
+   * Обязательное поле. Связь многие-к-одному с сущностью {@link RentalPoint}.
+   * Не может быть null.
+   * <b>Каскадное удаление:</b> При удалении пункта проката будут автоматически
+   * удалены все связанные записи в available_equipment.
+   * </p>
+   * <p>
+   * <b>Связь с базой данных:</b> Хранится как внешний ключ к таблице {@code rental_points}.
+   * </p>
+   * <p><b>Валидация выполняется автоматически через аннотацию:
+   * </b> {@link NotNull} - значение не должно быть null.</p>
+   * <p><b>Сообщение об ошибке валидации:</b> "Точка проката должна быть указана."</p>
+   */
+  @ManyToOne
+  @JoinColumn(name = "point_id", nullable = false)
+  @NotNull(message = "Точка проката должна быть указана.")
+  @OnDelete(action = OnDeleteAction.CASCADE)
+  private RentalPoint rentalPoint;
 
-    /**
-     * Тип инвентаря, который доступен в пункте проката.
-     * <p>
-     * Обязательное поле. Связь многие-к-одному с сущностью {@link EquipmentType}.
-     * Не может быть null.
-     * <b>Каскадное удаление:</b> При удалении типа инвентаря будут автоматически
-     * удалены все связанные записи в available_equipment.
-     * </p>
-     * <p>
-     * <b>Связь с базой данных:</b> Хранится как внешний ключ к таблице {@code equipment_types}.
-     * </p>
-     * <p><b>Валидация выполняется автоматически через аннотацию:</b> {@link NotNull} - значение не должно быть null.</p>
-     * <p><b>Сообщение об ошибке валидации:</b> "Тип инвентаря должен быть указан."</p>
-     */
-    @ManyToOne
-    @JoinColumn(name = "type_id", nullable = false)
-    @NotNull(message = "Тип инвентаря должен быть указан.")
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private EquipmentType equipmentType;
+  /**
+   * Тип инвентаря, который доступен в пункте проката.
+   * <p>
+   * Обязательное поле. Связь многие-к-одному с сущностью {@link EquipmentType}.
+   * Не может быть null.
+   * <b>Каскадное удаление:</b> При удалении типа инвентаря будут автоматически
+   * удалены все связанные записи в available_equipment.
+   * </p>
+   * <p>
+   * <b>Связь с базой данных:</b> Хранится как внешний ключ к таблице {@code equipment_types}.
+   * </p>
+   * <p><b>Валидация выполняется автоматически через аннотацию:
+   * </b> {@link NotNull} - значение не должно быть null.</p>
+   * <p><b>Сообщение об ошибке валидации:</b> "Тип инвентаря должен быть указан."</p>
+   */
+  @ManyToOne
+  @JoinColumn(name = "type_id", nullable = false)
+  @NotNull(message = "Тип инвентаря должен быть указан.")
+  @OnDelete(action = OnDeleteAction.CASCADE)
+  private EquipmentType equipmentType;
 
-    /**
-     * Общее количество инвентаря данного типа в пункте проката.
-     * <p>
-     * Обязательное поле. Должно быть неотрицательным числом.
-     * Представляет физическое наличие инвентаря в пункте.
-     * </p>
-     * <p><b>Пример:</b> 10 (в пункте имеется 10 единиц данного инвентаря)</p>
-     * <p>Валидация выполняется автоматически через аннотации:
-     * <ul>
-     *     <li>{@link NotNull} - значение не должно быть null</li>
-     *     <li>{@link Min} - значение не должно быть отрицательным</li>
-     * </ul>
-     * </p>
-     * <p><b>Сообщения об ошибках валидации:</b>
-     * <ul>
-     *     <li>"Общее количество инвентаря не может быть пустым."</li>
-     *     <li>"Общее количество инвентаря не может быть отрицательным."</li>
-     * </ul>
-     * </p>
-     */
-    @NotNull(message = "Общее количество инвентаря не может быть пустым.")
-    @Min(value = 0, message = "Общее количество инвентаря не может быть отрицательным.")
-    @Column(name = "total_count", nullable = false)
-    private Integer totalCount;
+  /**
+   * Общее количество инвентаря данного типа в пункте проката.
+   * <p>
+   * Обязательное поле. Должно быть неотрицательным числом.
+   * Представляет физическое наличие инвентаря в пункте.
+   * </p>
+   * <p><b>Пример:</b> 10 (в пункте имеется 10 единиц данного инвентаря)</p>
+   * <p>Валидация выполняется автоматически через аннотации:
+   * <ul>
+   *     <li>{@link NotNull} - значение не должно быть null</li>
+   *     <li>{@link Min} - значение не должно быть отрицательным</li>
+   * </ul>
+   * </p>
+   * <p><b>Сообщения об ошибках валидации:</b>
+   * <ul>
+   *     <li>"Общее количество инвентаря не может быть пустым."</li>
+   *     <li>"Общее количество инвентаря не может быть отрицательным."</li>
+   * </ul>
+   * </p>
+   */
+  @NotNull(message = "Общее количество инвентаря не может быть пустым.")
+  @Min(value = 0, message = "Общее количество инвентаря не может быть отрицательным.")
+  @Column(name = "total_count", nullable = false)
+  private Integer totalCount;
 
-    /**
-     * Количество инвентаря, доступного для аренды в текущий момент.
-     * <p>
-     * Необязательное поле. По умолчанию равно {@code totalCount}.
-     * Должно быть неотрицательным числом и не может превышать {@code totalCount}.
-     * Может быть null - в этом случае при сохранении будет установлено равным {@code totalCount}.
-     * </p>
-     * <p>
-     * <b>Автоматическая инициализация:</b> При сохранении или обновлении записи,
-     * если {@code availableCount} равен null, он автоматически устанавливается равным {@code totalCount}
-     * через метод {@link #validate()}.
-     * </p>
-     * <p><b>Пример:</b> 8 (из 10 единиц доступно для аренды, 2 уже арендованы)</p>
-     * <p><b>Валидация выполняется автоматически через аннотацию:</b> {@link Min} - значение не должно быть отрицательным.</p>
-     * <p><b>Сообщение об ошибке валидации:</b>
-     * "Доступное количество инвентаря не может быть отрицательным."
-     * </p>
-     */
-    @Min(value = 0, message = "Доступное количество инвентаря не может быть отрицательным.")
-    @Column(name = "available_count")
-    private Integer availableCount;
+  /**
+   * Количество инвентаря, доступного для аренды в текущий момент.
+   * <p>
+   * Необязательное поле. По умолчанию равно {@code totalCount}.
+   * Должно быть неотрицательным числом и не может превышать {@code totalCount}.
+   * Может быть null - в этом случае при сохранении будет установлено равным {@code totalCount}.
+   * </p>
+   * <p>
+   * <b>Автоматическая инициализация:</b> При сохранении или обновлении записи,
+   * если {@code availableCount} равен null, он автоматически устанавливается равным {@code totalCount}
+   * через метод {@link #validate()}.
+   * </p>
+   * <p><b>Пример:</b> 8 (из 10 единиц доступно для аренды, 2 уже арендованы)</p>
+   * <p><b>Валидация выполняется автоматически через аннотацию:
+   * </b> {@link Min} - значение не должно быть отрицательным.</p>
+   * <p><b>Сообщение об ошибке валидации:</b>
+   * "Доступное количество инвентаря не может быть отрицательным."
+   * </p>
+   */
+  @Min(value = 0, message = "Доступное количество инвентаря не может быть отрицательным.")
+  @Column(name = "available_count")
+  private Integer availableCount;
 
-    /**
-     * Стоимость аренды одной единицы инвентаря в час.
-     * <p>
-     * Обязательное поле. Должно быть положительным числом.
-     * Измеряется в рублях за час.
-     * </p>
-     * <p><b>Пример:</b> 100 (аренда стоит 100 рублей в час)</p>
-     * <p>Валидация выполняется автоматически через аннотации:
-     * <ul>
-     *     <li>{@link NotNull} - значение не должно быть null</li>
-     *     <li>{@link Min} - значение должно быть не меньше 1</li>
-     * </ul>
-     * <p><b>Сообщения об ошибках валидации:</b>
-     * <ul>
-     *     <li>"Стоимость аренды не может быть пустой."</li>
-     *     <li>"Стоимость аренды должна быть больше 0."</li>
-     * </ul>
-     * </p>
-     */
-    @NotNull(message = "Стоимость аренды не может быть пустой.")
-    @Min(value = 1, message = "Стоимость аренды должна быть больше 0.")
-    @Column(nullable = false)
-    private Integer cost;
+  /**
+   * Стоимость аренды одной единицы инвентаря в час.
+   * <p>
+   * Обязательное поле. Должно быть положительным числом.
+   * Измеряется в рублях за час.
+   * </p>
+   * <p><b>Пример:</b> 100 (аренда стоит 100 рублей в час)</p>
+   * <p>Валидация выполняется автоматически через аннотации:
+   * <ul>
+   *     <li>{@link NotNull} - значение не должно быть null</li>
+   *     <li>{@link Min} - значение должно быть не меньше 1</li>
+   * </ul>
+   * <p><b>Сообщения об ошибках валидации:</b>
+   * <ul>
+   *     <li>"Стоимость аренды не может быть пустой."</li>
+   *     <li>"Стоимость аренды должна быть больше 0."</li>
+   * </ul>
+   * </p>
+   */
+  @NotNull(message = "Стоимость аренды не может быть пустой.")
+  @Min(value = 1, message = "Стоимость аренды должна быть больше 0.")
+  @Column(nullable = false)
+  private Integer cost;
 
-    /**
-     * Метод валидации, вызываемый автоматически перед сохранением и обновлением записи.
-     * <p>
-     * Выполняет следующие проверки:
-     * <ol>
-     *     <li>Если {@code availableCount} равен null, устанавливает его равным {@code totalCount}</li>
-     *     <li>Проверяет, что {@code availableCount} не превышает {@code totalCount}</li>
-     * </ol>
-     * </p>
-     * <p>
-     * <b>Вызывается автоматически:</b> JPA вызывает этот метод перед операциями
-     * {@code persist()} (сохранение) и {@code merge()} (обновление).
-     * </p>
-     *
-     * @throws IllegalStateException если доступное количество превышает общее количество
-     * @see jakarta.persistence.PrePersist
-     * @see jakarta.persistence.PreUpdate
-     */
-    @PrePersist
-    @PreUpdate
-    private void validate() {
-        if (availableCount == null && totalCount != null) {
-            availableCount = totalCount;
-        }
-
-        if (availableCount != null && totalCount != null && availableCount > totalCount) {
-            throw new IllegalStateException(
-                    "Доступное количество инвентаря (" + availableCount +
-                            ") не может превышать общее (" + totalCount + ")."
-            );
-        }
+  /**
+   * Метод валидации, вызываемый автоматически перед сохранением и обновлением записи.
+   * <p>
+   * Выполняет следующие проверки:
+   * <ol>
+   *     <li>Если {@code availableCount} равен null, устанавливает его равным {@code totalCount}</li>
+   *     <li>Проверяет, что {@code availableCount} не превышает {@code totalCount}</li>
+   * </ol>
+   * </p>
+   * <p>
+   * <b>Вызывается автоматически:</b> JPA вызывает этот метод перед операциями
+   * {@code persist()} (сохранение) и {@code merge()} (обновление).
+   * </p>
+   *
+   * @throws IllegalStateException если доступное количество превышает общее количество
+   * @see jakarta.persistence.PrePersist
+   * @see jakarta.persistence.PreUpdate
+   */
+  @PrePersist
+  @PreUpdate
+  private void validate() {
+    if (availableCount == null && totalCount != null) {
+      availableCount = totalCount;
     }
 
-    /**
-     * Конструктор по умолчанию.
-     * <p>
-     * Требуется JPA для создания экземпляров сущности.
-     * </p>
-     */
-
-    public AvailableEquipment() {
+    if (availableCount != null && totalCount != null && availableCount > totalCount) {
+      throw new IllegalStateException("Доступное количество инвентаря (" + availableCount +
+        ") не может превышать общее (" + totalCount + ").");
     }
+  }
 
-    /**
-     * Конструктор с параметрами.
-     * <p>
-     * Создает новую запись о доступном инвентаре с указанными значениями.
-     * </p>
-     *
-     * @param rentalPoint пункт проката
-     * @param equipmentType тип инвентаря
-     * @param totalCount общее количество
-     * @param availableCount доступное количество
-     * @param cost стоимость аренды в час
-     */
-    public AvailableEquipment(RentalPoint rentalPoint, EquipmentType equipmentType,
-                              Integer totalCount, Integer availableCount, Integer cost) {
-        this.rentalPoint = rentalPoint;
-        this.equipmentType = equipmentType;
-        this.totalCount = totalCount;
-        this.availableCount = availableCount;
-        this.cost = cost;
-    }
+  /**
+   * Конструктор по умолчанию.
+   * <p>
+   * Требуется JPA для создания экземпляров сущности.
+   * </p>
+   */
 
-    /**
-     * Возвращает уникальный идентификатор записи о доступном инвентаре.
-     *
-     * @return идентификатор записи
-     */
-    public Long getAvailableId() {
-        return availableId;
-    }
+  public AvailableEquipment() {
+  }
 
-    /**
-     * Устанавливает уникальный идентификатор записи о доступном инвентаре.
-     * <p>
-     * Обычно устанавливается автоматически базой данных.
-     * </p>
-     *
-     * @param availableId новый идентификатор записи
-     */
-    public void setAvailableId(Long availableId) {
-        this.availableId = availableId;
-    }
+  /**
+   * Конструктор с параметрами.
+   * <p>
+   * Создает новую запись о доступном инвентаре с указанными значениями.
+   * </p>
+   *
+   * @param rentalPoint    пункт проката
+   * @param equipmentType  тип инвентаря
+   * @param totalCount     общее количество
+   * @param availableCount доступное количество
+   * @param cost           стоимость аренды в час
+   */
+  public AvailableEquipment(RentalPoint rentalPoint, EquipmentType equipmentType,
+                            Integer totalCount, Integer availableCount, Integer cost) {
+    this.rentalPoint = rentalPoint;
+    this.equipmentType = equipmentType;
+    this.totalCount = totalCount;
+    this.availableCount = availableCount;
+    this.cost = cost;
+  }
 
-    /**
-     * Возвращает пункт проката.
-     *
-     * @return пункт проката, в котором доступен инвентарь
-     */
-    public RentalPoint getRentalPoint() {
-        return rentalPoint;
-    }
+  /**
+   * Возвращает уникальный идентификатор записи о доступном инвентаре.
+   *
+   * @return идентификатор записи
+   */
+  public Long getAvailableId() {
+    return availableId;
+  }
 
-    /**
-     * Устанавливает пункт проката.
-     *
-     * @param rentalPoint новый пункт проката
-     */
-    public void setRentalPoint(RentalPoint rentalPoint) {
-        this.rentalPoint = rentalPoint;
-    }
+  /**
+   * Устанавливает уникальный идентификатор записи о доступном инвентаре.
+   * <p>
+   * Обычно устанавливается автоматически базой данных.
+   * </p>
+   *
+   * @param availableId новый идентификатор записи
+   */
+  public void setAvailableId(Long availableId) {
+    this.availableId = availableId;
+  }
 
-    /**
-     * Возвращает тип инвентаря.
-     *
-     * @return тип инвентаря, доступного в пункте проката
-     */
-    public EquipmentType getEquipmentType() {
-        return equipmentType;
-    }
+  /**
+   * Возвращает пункт проката.
+   *
+   * @return пункт проката, в котором доступен инвентарь
+   */
+  public RentalPoint getRentalPoint() {
+    return rentalPoint;
+  }
 
-    /**
-     * Устанавливает тип инвентаря.
-     *
-     * @param equipmentType новый тип инвентаря
-     */
-    public void setEquipmentType(EquipmentType equipmentType) {
-        this.equipmentType = equipmentType;
-    }
+  /**
+   * Устанавливает пункт проката.
+   *
+   * @param rentalPoint новый пункт проката
+   */
+  public void setRentalPoint(RentalPoint rentalPoint) {
+    this.rentalPoint = rentalPoint;
+  }
 
-    /**
-     * Возвращает общее количество инвентаря.
-     *
-     * @return общее количество единиц инвентаря в пункте проката
-     */
-    public Integer getTotalCount() {
-        return totalCount;
-    }
+  /**
+   * Возвращает тип инвентаря.
+   *
+   * @return тип инвентаря, доступного в пункте проката
+   */
+  public EquipmentType getEquipmentType() {
+    return equipmentType;
+  }
 
-    /**
-     * Устанавливает общее количество инвентаря.
-     *
-     * @param totalCount новое общее количество
-     */
-    public void setTotalCount(Integer totalCount) {
-        this.totalCount = totalCount;
-    }
+  /**
+   * Устанавливает тип инвентаря.
+   *
+   * @param equipmentType новый тип инвентаря
+   */
+  public void setEquipmentType(EquipmentType equipmentType) {
+    this.equipmentType = equipmentType;
+  }
 
-    /**
-     * Возвращает доступное количество инвентаря.
-     *
-     * @return количество единиц инвентаря, доступных для аренды
-     */
-    public Integer getAvailableCount() {
-        return availableCount;
-    }
+  /**
+   * Возвращает общее количество инвентаря.
+   *
+   * @return общее количество единиц инвентаря в пункте проката
+   */
+  public Integer getTotalCount() {
+    return totalCount;
+  }
 
-    /**
-     * Устанавливает доступное количество инвентаря.
-     * <p>
-     * При сохранении будет выполнена проверка,
-     * что установленное значение не превышает {@code totalCount}.
-     * </p>
-     *
-     * @param availableCount новое доступное количество
-     */
-    public void setAvailableCount(Integer availableCount) {
-        this.availableCount = availableCount;
-    }
+  /**
+   * Устанавливает общее количество инвентаря.
+   *
+   * @param totalCount новое общее количество
+   */
+  public void setTotalCount(Integer totalCount) {
+    this.totalCount = totalCount;
+  }
 
-    /**
-     * Возвращает стоимость аренды в час.
-     *
-     * @return стоимость аренды одной единицы инвентаря за час (в рублях)
-     */
-    public Integer getCost() {
-        return cost;
-    }
+  /**
+   * Возвращает доступное количество инвентаря.
+   *
+   * @return количество единиц инвентаря, доступных для аренды
+   */
+  public Integer getAvailableCount() {
+    return availableCount;
+  }
 
-    /**
-     * Устанавливает стоимость аренды в час.
-     *
-     * @param cost новая стоимость аренды
-     */
-    public void setCost(Integer cost) {
-        this.cost = cost;
-    }
+  /**
+   * Устанавливает доступное количество инвентаря.
+   * <p>
+   * При сохранении будет выполнена проверка,
+   * что установленное значение не превышает {@code totalCount}.
+   * </p>
+   *
+   * @param availableCount новое доступное количество
+   */
+  public void setAvailableCount(Integer availableCount) {
+    this.availableCount = availableCount;
+  }
 
-    /**
-     * Возвращает единицу измерения стоимости.
-     * <p>
-     * Используется для отображения в пользовательском интерфейсе.
-     * </p>
-     *
-     * @return строка "руб./час"
-     */
-    public String getCostUnit() {
-        return "руб./час";
-    }
+  /**
+   * Возвращает стоимость аренды в час.
+   *
+   * @return стоимость аренды одной единицы инвентаря за час (в рублях)
+   */
+  public Integer getCost() {
+    return cost;
+  }
 
-    /**
-     * Проверяет, доступен ли инвентарь для аренды.
-     * <p>
-     * Инвентарь доступен, если {@code availableCount} больше 0.
-     * </p>
-     *
-     * @return {@code true} если инвентарь доступен для аренды, {@code false} в противном случае
-     */
-    public boolean isAvailable() {
-        return availableCount != null && availableCount > 0;
-    }
+  /**
+   * Устанавливает стоимость аренды в час.
+   *
+   * @param cost новая стоимость аренды
+   */
+  public void setCost(Integer cost) {
+    this.cost = cost;
+  }
 
-    /**
-     * Арендует указанное количество инвентаря.
-     * <p>
-     * Уменьшает {@code availableCount} на указанное количество
-     * после проверки доступности.
-     * </p>
-     *
-     * @param quantity количество арендуемого инвентаря (должно быть > 0)
-     * @throws IllegalArgumentException если quantity <= 0
-     * @throws IllegalStateException если доступного инвентаря недостаточно
-     */
-    public void rentEquipment(int quantity) {
-        if (quantity <= 0) {
-            throw new IllegalArgumentException("Количество арендуемого инвентаря должно быть положительным.");
-        }
-        if (availableCount < quantity) {
-            throw new IllegalStateException(
-                    String.format("Недостаточно инвентаря для аренды. Доступно: %d, запрошено: %d.",
-                            availableCount, quantity)
-            );
-        }
-            availableCount -= quantity;
-    }
+  /**
+   * Возвращает единицу измерения стоимости.
+   * <p>
+   * Используется для отображения в пользовательском интерфейсе.
+   * </p>
+   *
+   * @return строка "руб./час"
+   */
+  public String getCostUnit() {
+    return "руб./час";
+  }
 
-    /**
-     * Возвращает указанное количество инвентаря.
-     * <p>
-     * Увеличивает {@code availableCount} на указанное количество
-     * после проверки, что общее количество не будет превышено.
-     * </p>
-     *
-     * @param quantity количество возвращаемого инвентаря (должно быть > 0)
-     * @throws IllegalArgumentException если quantity <= 0
-     * @throws IllegalStateException если возврат превысит общее количество инвентаря
-     */
-    public void returnEquipment(int quantity) {
-        if (quantity <= 0) {
-            throw new IllegalArgumentException("Количество возвращаемого инвентаря должно быть положительным.");
-        }
-        if (availableCount + quantity > totalCount) {
-            throw new IllegalStateException(
-                    String.format("Возврат превышает общее количество инвентаря. Всего: %d, будет: %d.",
-                            totalCount, availableCount + quantity)
-            );
-        }
-        availableCount += quantity;
-    }
+  /**
+   * Проверяет, доступен ли инвентарь для аренды.
+   * <p>
+   * Инвентарь доступен, если {@code availableCount} больше 0.
+   * </p>
+   *
+   * @return {@code true} если инвентарь доступен для аренды, {@code false} в противном случае
+   */
+  public boolean isAvailable() {
+    return availableCount != null && availableCount > 0;
+  }
 
-    /**
-     * Возвращает строковое представление записи о доступном инвентаре.
-     * <p>
-     * <b>Формат:</b> AvailableEquipment{availableId=[id], rentalPoint=[pointName],
-     * equipmentType=[typeName], totalCount=[total], availableCount=[available],
-     * cost=[cost], costUnit='руб./час'}
-     * </p>
-     *
-     * @return строковое представление записи
-     */
-    @Override
-    public String toString() {
-        return "AvailableEquipment{" +
-                "availableId=" + availableId +
-                ", rentalPoint=" + (rentalPoint != null ? rentalPoint.getPointName() : "null") +
-                ", equipmentType=" + (equipmentType != null ? equipmentType.getTypeName() : "null") +
-                ", totalCount=" + totalCount +
-                ", availableCount=" + availableCount +
-                ", cost=" + cost +
-                ", costUnit='" + getCostUnit() + '\'' +
-                '}';
+  /**
+   * Арендует указанное количество инвентаря.
+   * <p>
+   * Уменьшает {@code availableCount} на указанное количество
+   * после проверки доступности.
+   * </p>
+   *
+   * @param quantity количество арендуемого инвентаря (должно быть > 0)
+   * @throws IllegalArgumentException если quantity <= 0
+   * @throws IllegalStateException    если доступного инвентаря недостаточно
+   */
+  public void rentEquipment(int quantity) {
+    if (quantity <= 0) {
+      throw new IllegalArgumentException
+        ("Количество арендуемого инвентаря должно быть положительным.");
     }
+    if (availableCount < quantity) {
+      throw new IllegalStateException(String.format("Недостаточно инвентаря для аренды. " +
+        "Доступно: %d, запрошено: %d.", availableCount, quantity));
+    }
+    availableCount -= quantity;
+  }
+
+  /**
+   * Возвращает указанное количество инвентаря.
+   * <p>
+   * Увеличивает {@code availableCount} на указанное количество
+   * после проверки, что общее количество не будет превышено.
+   * </p>
+   *
+   * @param quantity количество возвращаемого инвентаря (должно быть > 0)
+   * @throws IllegalArgumentException если quantity <= 0
+   * @throws IllegalStateException    если возврат превысит общее количество инвентаря
+   */
+  public void returnEquipment(int quantity) {
+    if (quantity <= 0) {
+      throw new IllegalArgumentException
+        ("Количество возвращаемого инвентаря должно быть положительным.");
+    }
+    if (availableCount + quantity > totalCount) {
+      throw new IllegalStateException(String.format("Возврат превышает общее количество " +
+        "инвентаря. Всего: %d, будет: %d.", totalCount, availableCount + quantity));
+    }
+    availableCount += quantity;
+  }
+
+  /**
+   * Возвращает строковое представление записи о доступном инвентаре.
+   * <p>
+   * <b>Формат:</b> AvailableEquipment{availableId=[id], rentalPoint=[pointName],
+   * equipmentType=[typeName], totalCount=[total], availableCount=[available],
+   * cost=[cost], costUnit='руб./час'}
+   * </p>
+   *
+   * @return строковое представление записи
+   */
+  @Override
+  public String toString() {
+    return "AvailableEquipment{" + "availableId=" + availableId + ", rentalPoint=" +
+      (rentalPoint != null ? rentalPoint.getPointName() : "null") + ", equipmentType=" +
+      (equipmentType != null ? equipmentType.getTypeName() : "null") +
+      ", totalCount=" + totalCount + ", availableCount=" + availableCount +
+      ", cost=" + cost + ", costUnit='" + getCostUnit() + '\'' + '}';
+  }
 }

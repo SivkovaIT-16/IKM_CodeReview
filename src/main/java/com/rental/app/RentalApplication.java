@@ -1,3 +1,5 @@
+// FIX_ME: отступы изменены на 2 пробела
+// FIX_ME: добавлен перенос строки, если строка более 100 символов
 package com.rental.app;
 
 import org.springframework.boot.SpringApplication;
@@ -26,21 +28,21 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 @SpringBootApplication
 public class RentalApplication {
-    /**
-     * Точка входа в приложение.
-     * <p>
-     * Метод запускает веб-приложение и делает его доступным через веб-браузер.
-     * Инициализирует сервер, подключает базу данных и активирует все компоненты системы.
-     * <p>
-     * После успешного запуска приложение будет доступно
-     * по стандартному адресу {@code http://localhost:8080}
-     * и автоматически откроется в браузере
-     *
-     * @param args аргументы командной строки, могут использоваться для
-     * дополнительной настройки приложения
-     * @see SpringApplication#run(Class, String...)
-     */
-    public static void main(String[] args) {
-        SpringApplication.run(RentalApplication.class, args);
-    }
+  /**
+   * Точка входа в приложение.
+   * <p>
+   * Метод запускает веб-приложение и делает его доступным через веб-браузер.
+   * Инициализирует сервер, подключает базу данных и активирует все компоненты системы.
+   * <p>
+   * После успешного запуска приложение будет доступно
+   * по стандартному адресу {@code http://localhost:8080}
+   * и автоматически откроется в браузере
+   *
+   * @param args аргументы командной строки, могут использоваться для
+   *             дополнительной настройки приложения
+   * @see SpringApplication#run(Class, String...)
+   */
+  public static void main(String[] args) {
+    SpringApplication.run(RentalApplication.class, args);
+  }
 }
