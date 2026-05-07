@@ -1,5 +1,4 @@
 // FIX_ME: отступы изменены на 2 пробела
-// FIX_ME: добавлен перенос строки, если строка более 100 символов
 package com.rental.app.repository;
 
 import com.rental.app.entity.RentalPoint;
